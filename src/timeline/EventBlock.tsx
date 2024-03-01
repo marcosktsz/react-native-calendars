@@ -1,6 +1,7 @@
 import XDate from 'xdate';
-import React, {useCallback, useMemo} from 'react';
-import {View, Text, TextStyle, TouchableOpacity, ViewStyle} from 'react-native';
+import React, {useMemo} from 'react';
+import {View, Text, TextStyle, ViewStyle} from 'react-native';
+import {SquircleView} from 'react-native-figma-squircle';
 
 export interface Event {
   id?: string;
@@ -48,17 +49,17 @@ const EventBlock = (props: EventBlockProps) => {
     };
   }, [event]);
 
-  const _onPress = useCallback(() => {
-    onPress(index);
-  }, [index, onPress]);
+  // const _onPress = useCallback(() => {
+  //   onPress(index);
+  // }, [index, onPress]);
 
   return (
-    <TouchableOpacity activeOpacity={0.9} onPress={_onPress} style={[styles.event, eventStyle]}>
+    <SquircleView squircleParams={{cornerSmoothing: 1, cornerRadius: 20}} style={[styles.event, eventStyle]}>
       {renderEvent ? (
         renderEvent(event)
       ) : (
         <View>
-          <Text numberOfLines={1} style={styles.eventTitle}>
+          <Text numberOfLines={0} style={styles.eventTitle}>
             {event.title || 'Event'}
           </Text>
           {numberOfLines > 1 ? (
@@ -73,7 +74,7 @@ const EventBlock = (props: EventBlockProps) => {
           ) : null}
         </View>
       )}
-    </TouchableOpacity>
+    </SquircleView>
   );
 };
 

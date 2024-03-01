@@ -9,13 +9,29 @@ const EVENT_TEXT_COLOR = '#615B73';
 const NOW_INDICATOR_COLOR = 'red';
 const UNAVAILABLE_HOURS_BLOCK_COLOR = '#F8F9FA';
 
-export default function styleConstructor(theme: Theme = {}, calendarHeight: number) {
+export default function styleConstructor(
+  theme: Theme = {
+    line: {
+      marginLeft: 60,
+      opacity: 0.4
+    },
+    event: {
+      borderRadius: 10,
+      flex: 1,
+      minWidth: 0,
+      alignItems: 'flex-start',
+      justifyContent: 'center'
+    }
+  },
+  calendarHeight: number
+) {
   const appStyle = {...defaultStyle, ...theme};
 
   return StyleSheet.create({
     container: {
       backgroundColor: appStyle.calendarBackground,
       ...appStyle.timelineContainer,
+      marginBottom: 160
     },
     contentStyle: {
       backgroundColor: appStyle.calendarBackground,
@@ -30,7 +46,7 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
       position: 'absolute'
     },
     verticalLine: {
-      width: 1,
+      width: 0,
       backgroundColor: LINE_COLOR,
       ...appStyle.verticalLine,
       position: 'absolute',
@@ -42,7 +58,7 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
     },
     nowIndicatorLine: {
       height: 1,
-      backgroundColor: NOW_INDICATOR_COLOR, 
+      backgroundColor: NOW_INDICATOR_COLOR,
       ...appStyle.nowIndicatorLine,
       position: 'absolute',
       left: 0,
@@ -59,11 +75,11 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
       top: -3
     },
     timeLabel: {
-      color: TIME_LABEL_COLOR,
-      fontSize: 10,
-      fontWeight: '500',
+      color: '#222',
+      fontSize: 14,
+      fontWeight: '800',
       fontFamily: constants.isIOS ? 'Helvetica Neue' : 'Roboto',
-      paddingLeft: 12,
+      paddingLeft: 0,
       textAlign: 'center',
       ...appStyle.timeLabel,
       position: 'absolute'
@@ -75,11 +91,11 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
     },
     event: {
       opacity: 1,
-      paddingLeft: 4,
-      paddingTop: 5,
+      paddingLeft: 12,
+      paddingTop: 0,
       paddingBottom: 0,
-      backgroundColor: '#F0F4FF',
-      borderColor: '#DDE5FD',
+      backgroundColor: '#77b5d9',
+      borderColor: '#f0f4ff',
       borderWidth: 1,
       ...appStyle.event,
       position: 'absolute',
@@ -87,19 +103,23 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
       flexDirection: 'column',
       alignItems: 'flex-start',
       overflow: 'hidden',
-      minHeight: 25,
+      minHeight: 0,
+      ...theme.event
     },
     eventTitle: {
       color: EVENT_TEXT_COLOR,
       fontWeight: '600',
       ...appStyle.eventTitle,
-      minHeight: 15
+      minHeight: 15,
+      flexWrap: 'wrap',
+      fontSize: 16
     },
     eventSummary: {
       color: EVENT_TEXT_COLOR,
       fontSize: 12,
       ...appStyle.eventSummary,
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      display: 'none'
     },
     eventTimes: {
       marginTop: 3,
@@ -107,10 +127,12 @@ export default function styleConstructor(theme: Theme = {}, calendarHeight: numb
       fontSize: 10,
       fontWeight: 'bold',
       ...appStyle.eventTimes,
-      flexWrap: 'wrap'
+      flexWrap: 'wrap',
+      display: 'none'
     },
     eventsContainer: {
-      flex: 1
+      flex: 1,
+      marginLeft: 60
     }
   });
 }
